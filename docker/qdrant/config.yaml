@@ -1,0 +1,12 @@
+storage:
+  storage_path: /qdrant/storage
+
+service:
+  http_port: 6333
+  grpc_port: 6334
+  max_request_size_mb: 256
+
+optimizers:
+  default_segment_number: 2
+
+telemetry_disabled: true
