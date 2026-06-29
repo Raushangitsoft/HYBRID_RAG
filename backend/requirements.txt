@@ -17,22 +17,24 @@ elasticsearch[async]==8.13.0
 # ── LLM & Embeddings ───────────────────────────────────────────
 langchain==0.2.3
 langchain-community==0.2.3
-langchain-core==0.2.3
+langchain-core>=0.2.19,<0.3.0
 langgraph==0.1.9
 sentence-transformers==3.0.1
 ollama==0.2.1
 
 # ── Document Parsing ───────────────────────────────────────────
-docling==1.16.0
 python-magic==0.4.27
 pypdf==4.2.0
+docling>=2.0.0,<3.0.0
+
 
 # ── Reranker & Retrieval ───────────────────────────────────────
 FlagEmbedding==1.2.10
 
 # ── Data & Utils ──────────────────────────────────────────────
 pydantic==2.7.1
-pydantic-settings==2.2.1
+pydantic-settings>=2.3.0,<3.0.0
+
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 aiofiles==23.2.1

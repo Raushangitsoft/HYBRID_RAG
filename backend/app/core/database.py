@@ -21,8 +21,20 @@ class Base(DeclarativeBase):
 
 async def init_db():
     from app.models import document  # noqa: F401 — registers models
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    from sqlalchemy.exc import IntegrityError, ProgrammingError
+
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+    except (IntegrityError, ProgrammingError) as exc:
+        # Multiple uvicorn workers can race to create the same
+        # tables/enum types on startup. If another worker already
+        # created it, Postgres raises a duplicate-object error here —
+        # safe to ignore since the schema now exists either way.
+        if "already exists" in str(exc) or "duplicate" in str(exc).lower():
+            pass
+        else:
+            raise
 
 
 async def get_db():
